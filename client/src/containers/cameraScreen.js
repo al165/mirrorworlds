@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class CameraScreen extends Component {
+
+    var video = null;
+
     render() {
         return (
             <div>
