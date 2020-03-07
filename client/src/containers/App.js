@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import './App.css';
-import Home from '../components/home';
+//import Home from '../components/home';
+import CameraScreen from '../containers/cameraScreen2';
 
 class App extends Component {
   state = {users: []}
@@ -13,10 +14,11 @@ class App extends Component {
 
   render() {
     return (
-        <div>
-          <Home />
+        <div style={{width: "100%", height: "100%"}}>
+        <CameraScreen />
         </div>
     )
+
 
     //return (
     //  <div className="App">
