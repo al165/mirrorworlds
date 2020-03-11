@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: blue;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <title>Asset 15</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <g>
+        <circle class="cls-1" cx="170" cy="170" r="170"/>
+        <g>
+          <path class="cls-2" d="M121.1,253.7h91.6v17.2H121.4V253.4Z"/>
+          <path class="cls-2" d="M250.4,155.6h17.7v59.8H250.7V155.3Z"/>
+          <path class="cls-2" d="M66.2,124.5h17v91.1h-17Z"/>
+          <path class="cls-2" d="M121.3,86.1v-17h77V85.8H121.1Z"/>
+          <path class="cls-2" d="M234.5,235.3V217.5h17V235H234.3Z"/>
+          <path class="cls-2" d="M216.3,253.6V235.8h16.9v17.5H216Z"/>
+          <path class="cls-2" d="M121.4,253.4H103.6V235.8h17.5v17.9Z"/>
+          <path class="cls-2" d="M84.9,106.1h16.9v17H84.9Z"/>
+          <path class="cls-2" d="M103.9,87.3h16.7v16.8H103.9Z"/>
+          <path class="cls-2" d="M101.7,234.4H85.1V217.5h16.6Z"/>
+          <rect class="cls-2" x="223.6" y="155.4" width="70.4" height="13.9" transform="translate(517.6 324.8) rotate(180)"/>
+          <rect class="cls-2" x="250.3" y="127.6" width="16.9" height="13.9" transform="translate(517.6 269.1) rotate(180)"/>
+          <rect class="cls-2" x="237" y="141.1" width="45.2" height="14.08" transform="translate(519.1 296.3) rotate(180)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

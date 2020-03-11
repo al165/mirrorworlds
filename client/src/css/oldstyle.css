@@ -140,6 +140,49 @@ html
   padding: 5px;
 }
 
+/*TRANSITIONS*/
+
+.page {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  overflow-y: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  transition: transform 1s ease-in-out;
+}
+
+.page-enter {
+  transform: translate(0, -100%);
+}
+
+.page-enter-active {
+  transform: translate(0, 0);
+}
+
+.page-exit {
+  transform: translate(0, -100%);
+}
+
+.fade-enter,
+.fade-exit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.6s ease opacity;
+}
+
+.fade-enter,
+.fade-exit-active {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  z-index: 1;
+}
+
+
 /*ITEMS*/
 
 img {
@@ -194,9 +237,91 @@ img {
   flex: 4;
 }
 
+.tinderbtn {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+
+/*BUTTONS*/
+
+
+.btncontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+}
+
+.btnhori {
+width: 40vw;
+display: flex;
+justify-content: center;
+padding-left: 0;
+padding-right: 0;
+}
+
+.btnmini {
+width: 35vw;
+display: flex;
+justify-content: center;
+padding-left: 0;
+padding-right: 0;
+background-color: #0000FF;
+}
+
+.glyph {
+  background-color: #0000FF;
+  font-family: 'Mister Pixel ToolsOne';
+
+}
+
+button {
+  width: 100%;
+  height: auto;
+  margin-top: 15px;
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 1.2;
+  font-size: 10vw;
+  font-family: 'Mister Pixel';
+  color: #FFF;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 5px;
+  padding: 1vw;
+  text-shadow: 0px 3px 6px rgba(0,0,0, 0.3);
+}
+
+.play {
+  background-color: #00ff00 !important;
+}
+
+.join {
+  background-color: #00ff00 !important;
+  margin-bottom: 20px;
+}
+
+.howto {
+  background-color: #0000FF;
+}
+
+.close {
+  background-color: #000;
+}
+
+.exit {
+  background-color: #000;
+}
+
+.deny {
+  background-color: #FF0000;
+}
+
 /*TABLES*/
 
-/*
 .tafel {
   height: 40vh;
   overflow: scroll;
@@ -249,20 +374,17 @@ td {
 label {
   white-space: nowrap;
   width: 100%;
-}*/
-
+}
 
 /*Camera canvas*/
 
-/*
     canvas {
       width: 100%;
       height: 50vh;
     }
-*/
+    
 
 /*Camera label*/
-/*
 [type="file"] {
   border: 0;
   clip: rect(0, 0, 0, 0);
@@ -328,8 +450,7 @@ input[type="text"] {
   padding-left: 8px;
   border-radius: 5px;
   text-shadow: 0px 3px 6px rgba(0,0,0, 0.3);
-}*/
-
+}
 
 ::-webkit-input-placeholder { /* Edge */
   color: rgba(0,0,255,0.2);
@@ -344,4 +465,8 @@ input[type="text"] {
 ::placeholder {
   color: rgba(0,0,255,0.2);
   text-shadow: none;
+}
+
+#gamename {
+
 }

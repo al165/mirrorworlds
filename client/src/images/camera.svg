@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336.1 336.1">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>Asset 17</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <g>
+        <circle cx="168.1" cy="168.1" r="168.1"/>
+        <g id="yfMOBH">
+          <g>
+            <path class="cls-1" d="M256.1,239.4v17.2H79.9V239.4H256.1Z"/>
+            <path class="cls-1" d="M79.9,239.4H62.8v-123h17V239.5Z"/>
+            <path class="cls-1" d="M256.2,239.5V116.4h17.2v123H256.2Z"/>
+            <path class="cls-1" d="M133.1,80.4V63.6h69.8V80.4Z"/>
+            <path class="cls-1" d="M115.1,98.4v17.2H80.2V98.5h34.9Z"/>
+            <path class="cls-1" d="M220.8,98.5h35.1v17.1h-35V98.4Z"/>
+            <path class="cls-1" d="M115.2,98.5V81h17.1V98.4H115.2Z"/>
+            <path class="cls-1" d="M220.9,98.4H203.7V81h17.1V98.5Z"/>
+            <path class="cls-1" d="M124.6,142.1h-13V198h13Zm14.2-14.2h-13v13h13Zm0,71.2h-13v13h13Zm57-85.5H140.1v13h55.7Zm0,28.5H140.1V198h55.7Zm0,71.4H140.1v13h55.7Zm14.4-85.6h-13v13h13Zm0,71.2h-13v13h13Zm14.1-57h-13V198h13Z"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: lime;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>Asset 22</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <g>
+        <circle class="cls-1" cx="170" cy="170" r="170"/>
+        <path class="cls-2" d="M246.5,119.8v33.3H229.9v33.3H213.2v33.3H196.6V253H179.9v16.8H145.2V253H128.4V236.5H111.9V219.7H95.1V203.2H78.6V186.4H61.8V151.8H79.9v16.5H96.7v16.8h16.5v16.5H130v16.8h16.5v16.5h15.2V218.4h16.8V185.1H195V151.8h16.8V118.5h16.5V85.1h35v34.7Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
