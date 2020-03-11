@@ -1,33 +1,28 @@
 import React, { Component } from 'react';
-//import './App.css';
-//import Home from '../components/home';
+import { Switch, BrowserRouter, Route } from 'react-router-dom';
+
+import Home from '../components/home';
+import About from '../components/about';
+import Lobby from '../components/lobby';
 import CameraScreen from '../containers/cameraScreen2';
 
-class App extends Component {
-  state = {users: []}
+//import CameraScreen from '../containers/cameraScreen2';
 
-  //componentDidMount() {
-  //  fetch('/api/users')
-  //    .then(res => res.json())
-  //    .then(users => this.setState({ users }));
-  //}
+class App extends Component {
 
   render() {
+    const supportsHistory = 'pushState' in window.history;
     return (
-        <div style={{width: "100%", height: "100%"}}>
-        <CameraScreen />
-        </div>
+        <BrowserRouter forceRefresh={!supportsHistory}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/lobby" component={Lobby} />
+            <Route path="/cameraTest" component={CameraScreen}/>
+            <Route component={Home} />
+          </Switch>
+        </BrowserRouter>
     )
-
-
-    //return (
-    //  <div className="App">
-    //    <h1>Users</h1>
-    //    {this.state.users.map(user =>
-    //      <div key={user.id}>{user.username}</div>
-    //    )}
-    //  </div>
-    //);
   }
 }
 

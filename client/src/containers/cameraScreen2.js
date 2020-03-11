@@ -6,7 +6,9 @@ class CameraScreen extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {photo: null};
+
         this.takePhoto = this.takePhoto.bind(this);
         this.cancelPhoto = this.cancelPhoto.bind(this);
         this.sendPhoto = this.sendPhoto.bind(this);
@@ -42,7 +44,16 @@ class CameraScreen extends Component {
     cancelPhotoAnimation(ctx, width, height, photoData, progress) {
         // move the image...
         ctx.clearRect(0, 0, width, height);
-        ctx.putImageData(photoData, 0, progress*height);
+
+        // set image alpha...
+        const length = photoData.data.length;
+        const alpha = 255 * (1-progress);
+
+        for(var i=3; i < length; i+=4){
+            photoData.data[i] = alpha;
+        }
+
+        ctx.putImageData(photoData, 0, progress*(height/2));
     }
 
     sendPhotoAnimation(ctx, width, height, photoData, progress) {
