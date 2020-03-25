@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 
 import '../css/camera.css';
+import style from '../css/style.module.css';
 
 class CameraScreen extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {photo: null};
+        this.state = {photo: null,
+                      facingMode: 'environment'};
 
         this.takePhoto = this.takePhoto.bind(this);
         this.cancelPhoto = this.cancelPhoto.bind(this);
         this.sendPhoto = this.sendPhoto.bind(this);
         this.animate = this.animate.bind(this);
+        this.flipCamera = this.flipCamera.bind(this);
+
     }
 
     componentDidMount() {
@@ -26,12 +30,22 @@ class CameraScreen extends Component {
         var ctx = this.canvas.getContext("2d");
         ctx.globalAlpha = 0.0;
 
-        navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}})
-            .then((stream) => {
-                this.video.srcObject = stream;
-                this.video.play();
-            });
+        this.setCamera('environment');
     }
+
+    //getCameraSelection() {
+    //    console.log('getCameraSelection');
+    //    this.setCamera('environment');
+    //    //navigator.mediaDevices.enumerateDevices().then((devices) => {
+    //        //const videoDevices = devices.filter(device => device.kind === 'videoinput');
+    //        //const videoIds = videoDevices.map(videoDevice => {
+    //        //    return videoDevice.deviceId;
+    //        //});
+
+    //        //this.setState({numCameras: videoIds.length});
+    //        //this.setCamera('user');
+    //    //});
+    //}
 
     flashAnimation(ctx, width, height, photoData, progress) {
         // fade the white fill...
@@ -111,6 +125,30 @@ class CameraScreen extends Component {
         this.animate(this.flashAnimation, 500);
     }
 
+    flipCamera() {
+        console.log('flipCamera');
+        if(this.state.facingMode === 'environment'){
+            this.setState({facingMode: 'user'});
+            this.setCamera('user');
+        } else {
+            this.setState({facingMode: 'environment'});
+            this.setCamera('environment');
+        }
+    }
+
+    setCamera(facingMode) {
+        console.log('setCamera', facingMode);
+        if(this.video.srcObject){
+            this.video.srcObject.getTracks()[0].stop();
+        } else {
+            this.video.srcObject = null;
+        }
+        navigator.mediaDevices.getUserMedia({video: {facingMode: facingMode}})
+            .then((stream) => {
+                this.video.srcObject = stream;
+                this.video.play();
+            });
+    }
 
     cancelPhoto() {
         this.setState({ photo: null });
@@ -129,25 +167,26 @@ class CameraScreen extends Component {
         let cameraButtons = null;
         if (this.state.photo) {
             cameraButtons = (
-                    <div>
-                    <button style={{width: '50%'}} onClick={this.cancelPhoto}>Cancel</button>
-                    <button style={{width: '50%'}} onClick={this.sendPhoto}>Send</button>
-                    </div>
+                    <>
+                    <button className={style.btnarrow} onClick={this.cancelPhoto}></button>
+                    <button className={style.btnyes} onClick={this.sendPhoto}></button>
+                    </>
             )
         } else {
             cameraButtons = (
-                    <div>
-                        <button style={{width: '50%'}} onClick={this.takePhoto}>Take</button>
-                    </div>
+                    <>
+                        <button className={style.btnarrow}></button>
+                        <button className={style.btncapture} onClick={this.takePhoto}></button>
+                    <button className={style.btnflip} onClick={this.flipCamera}></button>
+                    </>
             )
         }
-                //<canvas id="flashcanvas" ref={node => this.flashCanvas = node} />
 
         return (
             <>
                 <video id="videoview" ref={node => this.video = node} autoplay />
                 <canvas id="videocanvas" ref={node => this.canvas = node} />
-                <div id="photoButtonContainer">
+                <div className={style.btnflexbox}>
                     {cameraButtons}
                 </div>
             </>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import logo from '../images/logo.mp4';
-import styles from '../css/style.css';
 import buttons from '../css/buttons.css';
 
 class Home extends Component {
