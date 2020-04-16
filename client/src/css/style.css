@@ -21,14 +21,14 @@ html {
   height: 100%;
 }
 
-body {
+body { 
   margin: 0px;
   padding: 0px;
   width: 100%;
   height: 100%;
 /*  height: 100vh;
   height: calc(var(--vh, 1vh) * 100);*/
-  background-color: black;
+  background-color: #fff;
 }
 
 /*DIVS*/
@@ -51,7 +51,7 @@ div.flexbox {
   background-color: blue;
 }
 
-div.flexboxgif {
+div.flexboxcenter {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -60,26 +60,15 @@ div.flexboxgif {
   text-align: center;
   width: 100%;
   height: 100%;
-/*  background-color: blue;
-*/ padding-left: 8vw;
+  background-color: blue;
+  padding-left: 8vw;
   padding-right: 8vw;
-}
-
-.picturesent {
-  padding-top: 8vh; 
-  background-color: #0000ff;
-}
-
-.allpictures {
-  padding-top: 8vh; 
-  background-color: #00ff00;
 }
 
 .flexitem {
   box-sizing: border-box;
-/*  background-color: red;
-*/  text-align: center;
-  padding-bottom: 20px;
+  background-color: red;
+  text-align: center;
 }
 
 /*MARQUEES*/
@@ -87,37 +76,36 @@ div.flexboxgif {
     background-color: #000;
     margin-left: 0;
     margin-right: 0;
-    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     box-sizing: border-box;
-    padding: 1.5vh;
+    padding: 1vh;
     height: auto;
     display: block;
-    position: fixed;
-    font-size: 4vh;
+    font-size: 5vh;
     color: #00ff00;
 }
 
 .high {
-    margin-top: 6.5vh;
+    margin-top: 20px;
 }
 
 .low {
-    margin-top: 70vh;
+      margin-bottom: 0px;
 }
 
-/*IMAGES*/
-img.gif {
-  height: 150px;
-  width: 150px;
-  margin-bottom: 30px;
+@keyframes marquee {
+    0% { transform: translate(100%, 0); -webkit-transform: translateX(100%); }
+    100% { transform: translate(-100%, 0); -webkit-transform: translateX(-100%); }
 }
-
-img.loading {
-  height: 250px;
-  width: 250px;
-  margin-bottom: 30px;
+.marquee span {
+    display: inline-block;
+    text-indent: 0;
+    overflow: hidden;
+    -webkit-transition: 15s;
+    transition: 15s;
+    -webkit-animation: marquee 15s linear infinite;
+    animation: marquee 15s linear infinite;
 }
 
 /*BUTTONS*/
@@ -133,18 +121,16 @@ button {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   flex: 1;
   width: 100%;
-  /*height: 100px;*/
+  height: 100px;
   bottom: 5vh;
   padding-left: 8vw;
   padding-right: 8vw;
-  z-index: 4;
 /*  background-color: yellow;
-*/
-}
+*/}
 
 .btnyes {
   background-image: url(../images/yes.svg);
@@ -199,37 +185,38 @@ button {
 body {
   font-family: 'Mister Pixel', sans-serif;
   color: #FFF;
-  font-size: 10vh;
-  line-height: 1;
-  margin: 0;
+  font-size: 10vw;
+}
+
+.title {
+  font-size: 10vw;
+  line-height: 0;
+  font-family: 'Mister Pixel';
+  color: #FFF;
   text-transform: uppercase;
-  font-weight: normal;
+  text-shadow: 0px 3px 6px rgba(0,0,0, 0.3);
 }
 
 h1 {
   line-height: 1.5;
+  margin: 0px;
   font-size: 15vw;
-  margin: 0;
+  text-transform: uppercase;
+  text-shadow: 0px 3px 6px rgba(0,0,0, 0.3);
 }
 
 h2 {
   line-height: 1.2;
-  font-size: 7vh;
-  letter-spacing: 1px;
-  margin: 0;
-  font-weight: normal;
+  margin: 0px;
+  font-size: 10vw;
+  text-transform: uppercase;
+  text-shadow: 0px 3px 6px rgba(0,0,0, 0.3);
 }
 
 h3 {
   line-height: 1.2;
+  margin: 0;
   font-size: 6vw;
-  margin: 0;
+  text-transform: uppercase;
 }
 
-p {
-  line-height: 1.2;
-  margin: 0;
-  font-size: 4vh;
-  margin: 0;
-
-}
