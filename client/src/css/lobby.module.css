@@ -1,0 +1,55 @@
+
+.lobby {
+    background-color: #00f;
+    text-align: center;
+}
+
+/*.table {
+  height: 40vh;
+  overflow: scroll;
+  margin-bottom: 20px;
+}*/
+
+.tablejoin {
+  height: 40vh;
+  overflow: scroll;
+  margin-bottom: 0px;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  overflow: scroll;
+  margin-bottom: 20px;
+}
+
+
+table,
+td,
+th {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 9px;
+  font-size: 6vw;
+  border-bottom: solid 1px;
+  text-align: left;
+  overflow: hidden;
+
+}
+
+.w {
+  width: 60%;
+  overflow: hidden;
+}
+
+.z {
+  width: 70%;
+  overflow: hidden;
+}
+
+.y {
+  text-align: right;
+}

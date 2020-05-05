@@ -28,7 +28,7 @@ body {
   height: 100%;
 /*  height: 100vh;
   height: calc(var(--vh, 1vh) * 100);*/
-  background-color: #fff;
+  background-color: #000;
 }
 
 /*DIVS*/
@@ -135,7 +135,7 @@ button {
 body {
   font-family: 'Mister Pixel', sans-serif;
   color: #FFF;
-  font-size: 20vh;
+  /*font-size: 20vh;*/
 }
 
 .title {
