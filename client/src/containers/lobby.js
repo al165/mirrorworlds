@@ -97,12 +97,20 @@ class Lobby extends Component {
 
         return (
             <Div100vh className={styles.lobby}>
+
                 <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+                // Should work with class "flexboxgif" from style.module.css (that one also has padding)
+
+
                     <h1>Game Lobby</h1>
+
                     <Ticker direction="toLeft">{(index) => (<h3> ! Under construction ! </h3>)}</Ticker>
+                    // Ticker style found as "marquee" in style.module.css
+                   
                     <div style={{flex: 2, overflow: "auto"}}>
                         <GameList gameList={this.state.game_list} />
                     </div>
+
                     <div style={{flex: 1}}>
                         <button className={buttons.green} onClick={this.toggleCreateGamePopup.bind(this)}>Create New Game</button>
                         <Link to='/'>
