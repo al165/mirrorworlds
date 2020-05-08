@@ -13,7 +13,7 @@ class About extends Component {
             <Div100vh>
                 <div style={{height: "80%"}}>
                 <Carousel widgets={[IndicatorDots]}>
-                    <div style={{backgroundColor: '#0F0', height: '100%'}}>Frame 1</div>
+                    <div style={{backgroundColor: '#0F0', height: '100%'}}Frame 1</div>
                     <div style={{backgroundColor: 'blue', height: '100%'}}>Frame 2</div>
                 <div style={{backgroundColor: 'red', height: '100%'}}>Frame 3</div>
                 </Carousel>
