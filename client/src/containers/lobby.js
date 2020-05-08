@@ -9,6 +9,8 @@ import Popup from '../components/popup';
 import styles from '../css/lobby.module.css';
 import buttons from '../css/buttons.module.css';
 
+var socket;
+
 class Lobby extends Component {
     /* TODO */
 
@@ -16,6 +18,9 @@ class Lobby extends Component {
         super(props);
 
         this.base_url = 'https://mirrorworlds.io';
+        this._isMounted = false;
+
+        socket = props.socket;
 
         this.state = {
             game_list: null,
@@ -25,27 +30,46 @@ class Lobby extends Component {
     }
 
     getGames() {
-        this.setState({loading: true});
+        console.log('getGames');
+        //this.setState({loading: true});
 
         fetch(this.base_url + '/api/allgames')
             .then((res) => {
                 return res.json();
             })
             .then((game_list) => {
-                this.setState({game_list: game_list, loading: false});
+                if(this._isMounted){
+                    this.setState({game_list: game_list});
+                }
             })
             .catch((err) => {
-                this.setState({loading: false});
+                if(this._isMounted){
+                    this.setState({loading: false});
+                }
                 console.log('getGames()', err);
             });
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.getGames();
+
+        socket.on('game_list_updated', (data) => {
+            console.log('game_list_updated');
+            this.getGames();
+        });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+        console.log('componentWillUnmount');
+        socket.on('game_list_updated', (data)=>{});
     }
 
     toggleCreateGamePopup() {
-        this.setState({create_game: !this.state.create_game});
+        if(this._isMounted){
+            this.setState({create_game: !this.state.create_game});
+        }
     }
 
     createGame(e) {
@@ -65,14 +89,26 @@ class Lobby extends Component {
             };
             // fetch
             fetch("https://mirrorworlds.io/api/creategame", request)
-                .then((response) => {
-                    return response.json();
+                .then((response, err) => {
+                    if(response.status == 500 || err){
+                        alert('Error...')
+                        console.log(err);
+                    } else {
+                        return response.json();
+                    }
                 }).then((result) => {
-                    const gameID = result.id;
+                    // successfully created game...
+                    //this.setState({create_game: false});
+                    const gameID = result.gameID;
                     // save session cookie with username...
-                    window.sessionStorage.setItem('mw_user_data', JSON.stringify({
-                        username: newGameName
-                    }));
+                    let sessionData = JSON.parse(window.sessionStorage.getItem('mw_user_data'));
+                    if(!sessionData){
+                        sessionData = {}
+                    }
+                    sessionData[gameID] = newGameName;
+                    window.sessionStorage.setItem('mw_user_data', JSON.stringify(sessionData));
+                    return gameID;
+                }).then((gameID)=>{
                     this.props.history.push('/game/'+gameID);
                 }).catch((err) => {
                     console.log(err);
@@ -84,6 +120,7 @@ class Lobby extends Component {
     }
 
     render() {
+        console.log('lobby render');
         var createGameForm = (
                 <div>
                 <form onSubmit={this.createGame.bind(this)} >
@@ -101,7 +138,7 @@ class Lobby extends Component {
                     <h1>Game Lobby</h1>
                     <Ticker direction="toLeft">{(index) => (<h3> ! Under construction ! </h3>)}</Ticker>
                     <div style={{flex: 2, overflow: "auto"}}>
-                        <GameList gameList={this.state.game_list} />
+                        <GameList gameList={this.state.game_list} joinFunction={this.joinGame}/>
                     </div>
                     <div style={{flex: 1}}>
                         <button className={buttons.green} onClick={this.toggleCreateGamePopup.bind(this)}>Create New Game</button>
@@ -122,23 +159,3 @@ class Lobby extends Component {
 }
 
 export default Lobby;
-
-
-//function CreateGame(props) {
-//    if(props.show) {
-//        return (
-//                <>
-//                <form onSubmit={props.createGame} >
-//                <input type="text" id="gamename" placeholder="Enter Username"
-//            ref={(element) => {props.input=}}
-//                </>
-//        )
-//
-//    } else {
-//        return (
-//                <>
-//                <button className={buttons.green} onClick={props.showEntryBox}>Create New Game</button>
-//                </>
-//        )
-//    }
-//}

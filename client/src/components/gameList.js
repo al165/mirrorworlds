@@ -8,8 +8,10 @@ function GameList(props) {
         return (<h3>Loading...</h3>)
     } else if(props.gameList.length == 0){
         return (<>
-                <h3>No Active Games</h3>
-                You can start a new game below, then invite friends to join
+                <div className={styles.centered}>
+                    <h3>No Active Games</h3>
+                    <p>You can start a new game below, then invite friends to join</p>
+                </div>
                </>)
     } else {
         return (
@@ -30,11 +32,11 @@ function GameList(props) {
             <tbody>
                 {
                 props.gameList.map(g => (
-                    <tr>
+                    <tr key={g.gameID}>
                         <td>{g.owner}'s game</td>
-                        <td>{g.players.length}</td>
+                        <td>{g.players}</td>
                         <td>
-                        <Link to={`/game/${g.id}`}>
+                        <Link to={`/game/${g.gameID}`}>
                             <button className={styles.join} style={{fontSize: "5vw", marginBottom: "15px"}}>Join</button>
                         </Link>
                         </td>

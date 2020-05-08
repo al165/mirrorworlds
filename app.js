@@ -1,32 +1,33 @@
-var createError = require('http-errors');
+//var createError = require('http-errors');
 var express = require('express');
 var cors = require("cors");
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
-//var usersRouter = require('./routes/users');
-//var gameRouter = require('./routes/users');
-
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
+var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api')(io);
+
+PORT = 3000;
+
+app.set('view_engine', 'ejs');
+app.set('views', '../views');
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.json());
+//app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
+const mainPath = path.resolve(path.join(__dirname, 'client/dist'));
+app.use(express.static(mainPath));
+app.use('/game/:id', express.static(mainPath));
 app.use('/api', apiRouter);
-app.use('*', indexRouter);
-//app.use('/api/users', usersRouter);
-//app.use('/api/game', gamesRouter);
+app.use('/*', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,6 +43,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+http.listen(PORT, ()=>{
+  console.log('Server listening on PORT', PORT);
 });
 
 module.exports = app;

@@ -11,7 +11,7 @@ class Home extends Component {
         return (
             <Div100vh className={styles.home}>
                 <div className={styles.logo}>
-                    <video id="vid" width="100%" height="100%" objectFit="contain" autoPlay playsInline loop muted>
+                    <video id="vid" width="100%" height="100%" objectfit="contain" autoPlay playsInline loop muted>
                         <source src={logo} type="video/mp4" />
                     </video>
                 </div>

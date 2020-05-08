@@ -82,6 +82,7 @@ div.flexboxgif {
   padding-bottom: 20px;
 }
 
+
 /*MARQUEES*/
 .marquee {
     background-color: #000;
@@ -237,7 +238,7 @@ h3 {
 p {
   line-height: 1.2;
   margin: 0;
-  font-size: 4vh;
+  font-size: 4vw;
   margin: 0;
 
 }
