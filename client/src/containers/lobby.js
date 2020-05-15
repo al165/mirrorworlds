@@ -6,7 +6,8 @@ import Ticker from 'react-ticker';
 import GameList from '../components/gameList';
 import Popup from '../components/popup';
 
-import styles from '../css/lobby.module.css';
+import lobby from '../css/lobby.module.css';
+import styles from '../css/style.module.css';
 import buttons from '../css/buttons.module.css';
 
 var socket;
@@ -30,12 +31,13 @@ class Lobby extends Component {
     }
 
     getGames() {
-        console.log('getGames');
-        //this.setState({loading: true});
-
         fetch(this.base_url + '/api/allgames')
             .then((res) => {
-                return res.json();
+                if(res.status == 200){
+                    return res.json();
+                } else {
+                    throw res.status;
+                }
             })
             .then((game_list) => {
                 if(this._isMounted){
@@ -54,6 +56,14 @@ class Lobby extends Component {
         this._isMounted = true;
         this.getGames();
 
+        let sessionData = JSON.parse(window.sessionStorage.getItem('mw_user_data'));
+        if(sessionData && sessionData.userID){
+            this.setState({userID: sessionData.userID});
+        } else {
+            console.log('no session data...');
+            socket.connect();
+        }
+
         socket.on('game_list_updated', (data) => {
             console.log('game_list_updated');
             this.getGames();
@@ -62,7 +72,6 @@ class Lobby extends Component {
 
     componentWillUnmount() {
         this._isMounted = false;
-        console.log('componentWillUnmount');
         socket.on('game_list_updated', (data)=>{});
     }
 
@@ -84,29 +93,23 @@ class Lobby extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'username': newGameName
+                    'username': newGameName,
+                    'userID': this.state.userID
                 })
             };
             // fetch
             fetch("https://mirrorworlds.io/api/creategame", request)
                 .then((response, err) => {
-                    if(response.status == 500 || err){
-                        alert('Error...')
-                        console.log(err);
+                    if(response.status != 200 || err){
+                        throw err;
                     } else {
                         return response.json();
                     }
                 }).then((result) => {
-                    // successfully created game...
-                    //this.setState({create_game: false});
                     const gameID = result.gameID;
-                    // save session cookie with username...
-                    let sessionData = JSON.parse(window.sessionStorage.getItem('mw_user_data'));
-                    if(!sessionData){
-                        sessionData = {}
+                    if(result.shouldjoin){
+                        socket.emit('joined_game', gameID);
                     }
-                    sessionData[gameID] = newGameName;
-                    window.sessionStorage.setItem('mw_user_data', JSON.stringify(sessionData));
                     return gameID;
                 }).then((gameID)=>{
                     this.props.history.push('/game/'+gameID);
@@ -132,22 +135,22 @@ class Lobby extends Component {
                 </div>
         )
 
+                // Ticker style found as "marquee" in style.module.css}
+                // Should work with class "flexboxgif" from style.module.css (that one also has padding)}
+                //<div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+                //<div className={styles.flexboxgif}>
         return (
-            <Div100vh className={styles.lobby}>
-
+            <Div100vh className={lobby.lobby}>
                 <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-                // Should work with class "flexboxgif" from style.module.css (that one also has padding)
-
-
                     <h1>Game Lobby</h1>
-
-                    <Ticker direction="toLeft">{(index) => (<h3> ! Under construction ! </h3>)}</Ticker>
-                    // Ticker style found as "marquee" in style.module.css
-                   
+                <Ticker direction="toLeft">
+                {(index) => (<h3 style={{whiteSpace: "nowrap"}}>
+                             <span className={styles.tickertext}>Welcome to MIRROR WORLDS</span>
+                             </h3>)}
+                </Ticker>
                     <div style={{flex: 2, overflow: "auto"}}>
                         <GameList gameList={this.state.game_list} joinFunction={this.joinGame}/>
                     </div>
-
                     <div style={{flex: 1}}>
                         <button className={buttons.green} onClick={this.toggleCreateGamePopup.bind(this)}>Create New Game</button>
                         <Link to='/'>

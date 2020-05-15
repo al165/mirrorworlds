@@ -8,6 +8,8 @@ function PlayerList(props) {
     }
 
     var playerList = [];
+    var username = props.username;
+
     for (var k in props.playerList){
         if(props.playerList.hasOwnProperty(k)){
             var player = props.playerList[k];
@@ -44,7 +46,7 @@ function PlayerList(props) {
                 {
                 playerList.map(p => (
                     <tr key={p.playerID}>
-                        <td>{p.username}</td>
+                        <td>{p.username == username ? p.username : p.username}</td>
                         <td>{p.score}</td>
                     </tr>
                     ))

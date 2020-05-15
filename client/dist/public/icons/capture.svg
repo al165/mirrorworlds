@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336.6 336.1">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>Asset 18</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <g>
+        <circle cx="168.6" cy="168" r="168"/>
+        <circle cx="168" cy="168.1" r="168"/>
+        <g>
+          <path class="cls-1" d="M42.6,209.4V127.1H61.9v82.3Z"/>
+          <path class="cls-1" d="M274.4,126.9h19v82.3h-19Z"/>
+          <path class="cls-1" d="M126.7,61.7V43.1H209V61.7Z"/>
+          <path class="cls-1" d="M126.9,293.1V273.9h82v19.2Z"/>
+          <path class="cls-1" d="M252.2,252.7V211.2h19.9v41.2H251.9Z"/>
+          <path class="cls-1" d="M252.9,84.9h19.2v40.4H252.9Z"/>
+          <path class="cls-1" d="M83.1,251.6H64.3V211.2H83.1Z"/>
+          <path class="cls-1" d="M64.2,84.6h19v40.6h-19Z"/>
+          <path class="cls-1" d="M251.9,252.4v20H211.1V252.7h41.1Z"/>
+          <path class="cls-1" d="M125.3,253.8v18.4H85.2V253.8Z"/>
+          <path class="cls-1" d="M85.1,63.8h40V83h-40Z"/>
+          <path class="cls-1" d="M251.3,63.9V83.1H211.2V63.9Z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

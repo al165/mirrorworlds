@@ -3,6 +3,12 @@ import Div100vh from 'react-div-100vh';
 
 import '../css/camera.css';
 import style from '../css/style.module.css';
+import buttons from '../css/buttons.module.css';
+
+import ButtonCapture from '../images/capture.svg';
+import ButtonFlip from '../images/flip.svg';
+import ButtonYes from '../images/yes.svg';
+import ButtonArrow from '../images/arrow.svg';
 
 class CameraScreen extends Component {
 
@@ -32,6 +38,16 @@ class CameraScreen extends Component {
         ctx.globalAlpha = 0.0;
 
         this.setCamera('environment');
+
+        document.getElementById('photoButtonContainer').style.bottom = '6vh';
+    }
+
+    componentWillUnmount() {
+        if(this.video.srcObject){
+            this.video.srcObject.getTracks()[0].stop();
+        } else {
+            this.video.srcObject = null;
+        }
     }
 
     flashAnimation(ctx, width, height, photoData, progress) {
@@ -143,10 +159,9 @@ class CameraScreen extends Component {
     }
 
     sendPhoto() {
-        // TODO
         this.animate(this.sendPhotoAnimation, 300);
 
-        alert('Not implemented yet ;)');
+        this.props.submitPhoto(this.state.photo);
     }
 
     render() {
@@ -154,16 +169,20 @@ class CameraScreen extends Component {
         if (this.state.photo) {
             cameraButtons = (
                     <div id="photoButtonContainer">
-                    <button className={style.btnarrow} onClick={this.cancelPhoto}></button>
-                    <button className={style.btnyes} onClick={this.sendPhoto}></button>
+                    <ButtonArrow fill='blue' onClick={this.cancelPhoto} width={70} height={70}/>
+                    <ButtonYes fill='#0F0' onClick={this.sendPhoto} width={100} height={100}/>
                     </div>
             )
         } else {
+            var backButton = typeof this.props.backFunction !== 'undefined' ? 'visible' : 'hidden';
+            console.log(backButton);
+
+                    //{this.props.backFunction ? (<ButtonArrow fill='blue' onClick={this.props.backFunction} width={70} height={70}/>) : null}
             cameraButtons = (
                     <div id="photoButtonContainer">
-                    <button className={style.btnarrow}></button>
-                    <button className={style.btncapture} onClick={this.takePhoto}></button>
-                    <button className={style.btnflip} onClick={this.flipCamera}></button>
+                    <ButtonArrow fill='blue' style={{visibility: backButton}} onClick={this.props.backFunction} width={70} height={70}/>
+                    <ButtonCapture fill="black" onClick={this.takePhoto} width={100} height={100}/>
+                    <ButtonFlip fill="black" onClick={this.flipCamera} width={70} height={70}/>
                     </div>
             )
         }

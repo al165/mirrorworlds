@@ -13,7 +13,6 @@ button {
   color: #FFF;
   text-transform: uppercase;
   border: 0;
-  border-radius: 5px;
   padding: 1vw;
   text-shadow: 0px 3px 6px rgba(0,0,0, 0.3);
 }
@@ -32,4 +31,67 @@ button {
 
 .blue {
   background-color: #00F !important;
+}
+
+.btnflexbox {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  bottom: 5vh;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  z-index: 4;
+}
+
+.btnyes {
+  background-image: url(../images/yes.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+}
+
+.btncapture {
+  background-image: url(../images/capture.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+}
+
+.btnarrowbig {
+  background-image: url(../images/arrow.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+}
+
+.btnexit {
+  background-image: url(../images/exit.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 70px;
+  height: 70px;
+}
+
+.btnflip {
+  background-image: url(../images/flip.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 70px;
+  height: 70px;
+}
+
+.btnarrow {
+  background-image: url(../images/arrow.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 70px;
+  height: 70px;
 }

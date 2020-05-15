@@ -18,7 +18,7 @@
 
 table {
   width: 100%;
-  table-layout: fixed;
+  /*table-layout: fixed;*/
   overflow: scroll;
   margin-bottom: 20px;
 }
@@ -54,10 +54,11 @@ td {
   text-align: right;
 }
 
-.centered {
-  position: fixed;
+div.centered {
+  position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  padding: 10vw;
 }

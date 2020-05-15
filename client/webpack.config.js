@@ -45,10 +45,11 @@ module.exports = {
                 test: /\.svg$/,
                 use: [
                     {
-                        loader: 'svg-url-loader',
+                        loader: 'react-svg-loader',
                         options: {
                             name: '[name].[ext]',
                             limit: 10000,
+                            jsx: false
                         }
                     }
                 ]
@@ -74,6 +75,17 @@ module.exports = {
                             name: '[name].[ext]',
                             limit: 10000,
                             mimetype: "video/mp4"
+                        }
+                    }
+                ]
+            },{
+                test: /\.(jpe?g|png|gif)$/i,
+                use: [
+                    {
+                        loader: "url-loader",
+                        options: {
+                            limit: 8000,
+                            name: '[name].[ext]',
                         }
                     }
                 ]

@@ -3,10 +3,16 @@ import { Link, useParams } from 'react-router-dom';
 import Div100vh from 'react-div-100vh';
 import Ticker from 'react-ticker';
 
+import Loading from '../components/loading';
 import Popup from '../components/popup';
 import PlayerList from '../components/playerList';
+import PreGame from '../components/pregame';
+import CaptureContainer from '../containers/captureContainer';
 
+import styles from '../css/style.module.css';
 import buttons from '../css/buttons.module.css';
+
+var socket;
 
 class Game extends Component {
 
@@ -15,13 +21,25 @@ class Game extends Component {
         super(props);
         const gameID = this.props.match.params.id;
 
+        socket = props.socket;
+
+        this._isMounted = false;
+
+        this.ticker_text = 'Loading...';
+
+        //  check if session storage exists...
+        let sessionData = JSON.parse(window.sessionStorage.getItem('mw_user_data'));
+
         this.state = {
             joining: false,
             gameID: gameID,
+            userID: sessionData.userID,
             gameData: {
                 players: {}
             }
         }
+
+        console.log(this.state)
     }
 
     getGameData() {
@@ -38,17 +56,33 @@ class Game extends Component {
         fetch("https://mirrorworlds.io/api/gamedata", request)
             .then((response) => {
                 if(response.status != 200){
-                    alert('Error getting game data...')
+                    //alert('Error getting game data...')
+                    throw response.status;
                 } else {
                     return response.json();
                 }
             })
             .then((result) => {
-                console.log('recieved game data...')
-                console.log(result);
-                this.setState({gameData: result});
+                // check if we are in the game...
+                console.log('getGameData', result);
+                if(result.players[this.state.userID]){
+                    if(this._isMounted){
+                        this.setState({gameData: result});
+                        // TODO need to re-emit 'game_joined' to subscribe to game updates!
+                    } else {
+                        console.log('getGameData()', 'not mounted');
+                    }
+                } else {
+                    //show join box
+                    if(this._isMounted){
+                        this.setState({gameData: result, joining: true});
+                    } else {
+                        console.log('getGameData()', 'not mounted');
+                    }
+                }
             })
             .catch((err) => {
+                this.props.history.push('/lobby');
                 console.log(err);
             })
     }
@@ -56,26 +90,22 @@ class Game extends Component {
     componentDidMount() {
         // fetch current game data...
         this.getGameData();
+        this._isMounted = true;
 
-        // check if session storage exists...
-        let sessionData = window.sessionStorage.getItem('mw_user_data');
+        socket.on('game_updated', () => {
+            console.log('game_updated');
+            this.getGameData();
+        });
 
-        if(sessionData && sessionData != ''){
-            console.log('found session data!');
-            var user_data = JSON.parse(sessionData);
-            if(user_data[this.state.gameID]){
-                // player has been here before....
-                console.log('Welcome back!');
+        socket.on('game_deleted', () => {
+            this.props.history.push('/lobby');
+            alert('Game deleted due to inactivity...');
+        })
+    }
 
-            } else {
-                // player is new...
-                console.log('player new!');
-                this.setState({joining: true});
-            }
-        } else {
-            console.log('no data!');
-            this.setState({joining: true});
-        }
+    componentWillUnmount() {
+        this._isMounted = false;
+        socket.emit('game_leave', this.state.gameID);
     }
 
     makeJoinRequest(gameID, username){
@@ -88,28 +118,23 @@ class Game extends Component {
             },
             body: JSON.stringify({
                 username: username,
-                gameID: gameID
+                gameID: gameID,
+                userID: this.state.userID
             })
         };
 
         fetch("https://mirrorworlds.io/api/joingame", request)
             .then((response) => {
                 if(response.status != 200){
-                    alert('Error...')
+                    throw response.status;
                 } else {
                     return response.json();
                 }
             })
             .then((result) => {
-                // successfully joined game, update session storage
-                let sessionData = JSON.parse(window.sessionStorage.getItem('mw_user_data'));
-                if(!sessionData){
-                    sessionData = {}
-                }
-                sessionData[gameID] = username;
-                window.sessionStorage.setItem('mw_user_data', JSON.stringify(sessionData));
-                console.log('Joined game!');
+                socket.emit('joined_game', gameID);
                 this.setState({joining: false});
+                this.getGameData();
             })
             .catch((err) => {
                 console.log(err);
@@ -141,12 +166,25 @@ class Game extends Component {
                     </form>
                 </div>
         )
+
+        var screen = null;
+
+        if(this.state.gameData.state == 'game_wait'){
+            screen = (<PreGame gameData={this.state.gameData}
+                      userID={this.state.userID}
+                      gameID={this.state.gameID} />)
+        } else if(this.state.gameData.state == 'capture'){
+            screen = (<CaptureContainer gameData={this.state.gameData} />);
+        } else {
+            screen = (<Loading />);
+        }
+                    //<div className={`${styles.marquee} ${styles.high}`}>
+                    //    <Ticker>{((index) => (<h3 style={{whiteSpace: "nowrap"}}>{this.ticker_text} --- </h3>))}</Ticker>
+                    //</div>
+
         return (
                 <Div100vh>
-                    <h1>GAME SCREEN</h1>
-                    <Ticker direction="toLeft">{(index) => (<h3> ! Under construction ! </h3>)}</Ticker>
-                <PlayerList playerList={this.state.gameData.players}>
-                </PlayerList>
+                    {screen}
                     {this.state.joining ?
                     <Popup contents={joinGameForm}/>
                     : null

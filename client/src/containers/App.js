@@ -17,8 +17,24 @@ class App extends Component {
   constructor(props){
     super(props);
 
-    socket = io.connect();
-    //socket = io.connect('https://mirrorworlds.io', {secure: true});
+    socket = io.connect('https://mirrorworlds.io');
+    //    create unique user ID and register with server...
+    socket.on('user_id', (newID) => {
+        console.log('user_id', newID);
+        let sessionData = JSON.parse(window.sessionStorage.getItem('mw_user_data'));
+        if(!sessionData || !sessionData.userID){
+          sessionData = {userID: newID};
+          this.setState({userID: newID});
+          console.log('recieved userID:', newID)
+          window.sessionStorage.setItem('mw_user_data', JSON.stringify(sessionData));
+        } else {
+          // already have an ID, let server know it...
+          socket.emit('user_id', sessionData.userID);
+          console.log('found userID:', sessionData.userID);
+        }
+    });
+
+    socket.open();
   }
 
   render() {
