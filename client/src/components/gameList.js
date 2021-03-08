@@ -1,26 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from '../css/lobby.module.css';
+import lobby from '../css/lobby.module.css';
+import buttons from '../css/buttons.module.css';
 
 function GameList(props) {
     if(!props.gameList){
         return (<h3>Loading...</h3>)
     } else if(props.gameList.length == 0){
         return (<>
-                <div className={styles.centered}>
+                <div className={lobby.centered}>
                     <h3>No Active Games</h3>
                     <p>You can start a new game below, then invite friends to join</p>
                 </div>
                </>)
     } else {
         return (
-            <div className={styles.table}>
+            <div className={lobby.table}>
             <table id="t">
             <colgroup>
-                <col className={styles.w} />
-                <col className={styles.y} />
-                <col className={styles.y} />
+                <col className={lobby.w} />
+                <col className={lobby.y} />
+                <col className={lobby.y} />
             </colgroup>
             <thead>
                 <tr>
@@ -37,7 +38,7 @@ function GameList(props) {
                         <td>{g.players}</td>
                         <td>
                         <Link to={`/game/${g.gameID}`}>
-                            <button className={styles.join} style={{fontSize: "5vw", marginBottom: "15px"}}>Join</button>
+                            <button className={buttons.green} style={{fontSize: "5vw", marginBottom: "15px"}}>Join</button>
                         </Link>
                         </td>
                     </tr>

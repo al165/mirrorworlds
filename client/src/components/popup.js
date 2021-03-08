@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import styles from '../css/popup.css';
 
-class Popup extends Component {
+function Popup(props) {
 
-    render() {
-        return (
-            <div id="popup">
-                <div id="popupInner">
-                {this.props.contents}
-                </div>
-            </div>
-        )
-    }
+  return (
+      <div id="popup">
+        <div id="popupInner">
+          {props.contents}
+        </div>
+      </div>
+  )
 
 }
 

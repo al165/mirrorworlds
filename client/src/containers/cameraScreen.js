@@ -39,10 +39,11 @@ class CameraScreen extends Component {
 
         this.setCamera('environment');
 
-        document.getElementById('photoButtonContainer').style.bottom = '6vh';
+        //document.getElementById('photoButtonContainer').style.bottom = '6vh';
     }
 
     componentWillUnmount() {
+        console.log('[cameraScreen]', 'componentWillUnmount');
         if(this.video.srcObject){
             this.video.srcObject.getTracks()[0].stop();
         } else {
@@ -122,14 +123,14 @@ class CameraScreen extends Component {
 
         ctx.drawImage(this.video, cropX, 0, cropWidth, this.video.videoHeight, 0, 0, this.canvas.width, this.canvas.height);
 
-        const photo = this.canvas.toDataURL('image/webp');
+        const photo = this.canvas.toDataURL('image/jpeg', 0.5);
 
         this.setState({ photo });
         this.animate(this.flashAnimation, 500);
     }
 
     flipCamera() {
-        console.log('flipCamera');
+        //console.log('flipCamera');
         if(this.state.facingMode === 'environment'){
             this.setState({facingMode: 'user'});
             this.setCamera('user');
@@ -140,17 +141,21 @@ class CameraScreen extends Component {
     }
 
     setCamera(facingMode) {
-        console.log('setCamera', facingMode);
-        if(this.video.srcObject){
-            this.video.srcObject.getTracks()[0].stop();
-        } else {
-            this.video.srcObject = null;
+        //console.log('setCamera', facingMode);
+        if(this.video){
+            if(this.video.srcObject){
+                this.video.srcObject.getTracks()[0].stop();
+            } else {
+                this.video.srcObject = null;
+            }
+            navigator.mediaDevices.getUserMedia({video: {facingMode: facingMode}})
+                     .then((stream) => {
+                         if(this.video){
+                            this.video.srcObject = stream;
+                            this.video.play();
+                         }
+                     });
         }
-        navigator.mediaDevices.getUserMedia({video: {facingMode: facingMode}})
-            .then((stream) => {
-                this.video.srcObject = stream;
-                this.video.play();
-            });
     }
 
     cancelPhoto() {
@@ -160,42 +165,52 @@ class CameraScreen extends Component {
 
     sendPhoto() {
         this.animate(this.sendPhotoAnimation, 300);
-
-        this.props.submitPhoto(this.state.photo);
+        if(this.props.submitPhoto){
+            this.props.submitPhoto(this.state.photo);
+        }
     }
 
     render() {
         let cameraButtons = null;
+
         if (this.state.photo) {
             cameraButtons = (
-                    <div id="photoButtonContainer">
-                    <ButtonArrow fill='blue' onClick={this.cancelPhoto} width={70} height={70}/>
-                    <ButtonYes fill='#0F0' onClick={this.sendPhoto} width={100} height={100}/>
-                    </div>
+                <>
+                  <div style={{width: '8vh', height: '8vh'}}>
+                    <ButtonArrow fill='blue' onClick={this.cancelPhoto} />
+                  </div>
+                  <div style={{width: '12vh', height: '12vh'}}>
+                    <ButtonYes fill='#0F0' onClick={this.sendPhoto} />
+                  </div>
+                </>
             )
         } else {
-            var backButton = typeof this.props.backFunction !== 'undefined' ? 'visible' : 'hidden';
-            console.log(backButton);
-
-                    //{this.props.backFunction ? (<ButtonArrow fill='blue' onClick={this.props.backFunction} width={70} height={70}/>) : null}
+            const backButton = typeof this.props.backFunction !== 'undefined' ? 'visible' : 'hidden';
             cameraButtons = (
-                    <div id="photoButtonContainer">
-                    <ButtonArrow fill='blue' style={{visibility: backButton}} onClick={this.props.backFunction} width={70} height={70}/>
-                    <ButtonCapture fill="black" onClick={this.takePhoto} width={100} height={100}/>
-                    <ButtonFlip fill="black" onClick={this.flipCamera} width={70} height={70}/>
-                    </div>
+                <>
+                  <div style={{width: '8vh', height: '8vh'}}>
+                    <ButtonArrow fill='blue' style={{visibility: backButton}} onClick={this.props.backFunction} />
+                  </div>
+                  <div style={{width: '12vh', height: '12vh'}}>
+                    <ButtonCapture fill="black" onClick={this.takePhoto} />
+                  </div>
+                  <div style={{width: '8vh', height: '8vh'}}>
+                    <ButtonFlip fill="black" onClick={this.flipCamera} />
+                  </div>
+                </>
             )
         }
 
         return (
-            <Div100vh>
-                <video id="videoview" ref={node => this.video = node} autoPlay />
-                <canvas id="videocanvas" ref={node => this.canvas = node} />
+            <>
+              <video id="videoview" ref={node => this.video = node} autoPlay />
+              <canvas id="videocanvas" ref={node => this.canvas = node} />
+              <div id="photoButtonContainer" style={{bottom: this.props.hideButtons ? '-15vh' : '6vh'}}>
                 {cameraButtons}
-            </Div100vh>
+              </div>
+            </>
         );
     }
-
 }
 
 export default CameraScreen;

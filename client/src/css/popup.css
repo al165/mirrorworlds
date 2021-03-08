@@ -18,7 +18,8 @@
     position: absolute;
     left: 5%;
     right: 5%;
-    top: 33%;
+    top: 50%;
+    transform: translateY(-50%);
     margin: 0;
     border-radius: 10px;
     background: black;
@@ -26,6 +27,7 @@
     animation-name: moveUp;
     animation-duration: 0.5s;
     z-index: 101;
+    box-shadow: 0px 0px 30px #FFF;
 }
 
 @keyframes fadeIn {
@@ -39,13 +41,13 @@
 }
 
 @keyframes moveUp {
-    from {top: 100%}
-    to {top: 33%}
+    from {top: 150%}
+    to {top: 50%}
 }
 
 @keyframes moveDown {
-    from {top: 33%}
-    to {top: 100%}
+    from {top: 50%}
+    to {top: 150%}
 }
 
 input[type="text"] {

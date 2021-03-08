@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Ticker from 'react-ticker';
 
-import Popup from '../components/popup';
 import PlayerList from '../components/playerList';
 
 import styles from '../css/style.module.css';
@@ -37,7 +36,7 @@ function PreGame(props){
     }
 
     var is_owner = props.gameData.owner == username;
-    var ticker_text = (<span className={styles.tickertext}>Joining  <span style={{color: '#0F0'}}>{props.gameData.owner}s</span> game </span>);
+    let ticker_text = (<span className={styles.tickertext}>Joining <span style={{color: '#0F0'}}>{props.gameData.owner}'s</span> game </span>);
 
     if (is_owner){
         if (numplayers < 2){
@@ -55,23 +54,24 @@ function PreGame(props){
 
     return (
         <>
-            <div style={{display: 'flex', flexDirection: 'column', height: '100%', textAlign: 'center'}}>
-                <h1>Wait For Start</h1>
-                <Ticker>{((index) => (<h3>{ticker_text}</h3>))}</Ticker>
-            <div style={{flex: 2, overflow: "auto"}}>
+          <div className={styles.flexcontainer}>
+            <h1>Wait For Start</h1>
+            <div style={{width: "100%"}} >
+              <Ticker>{(() => (<h3>{ticker_text}</h3>))}</Ticker>
+            </div>
+            <div style={{flex: 2, overflow: "auto", width: '100%'}}>
                 <PlayerList playerList={props.gameData.players} username={username}></PlayerList>
             </div>
-            <div style={{flex: 1}}>
-            {startbutton}
+            <div style={{flex: 1, width: '100%',}}>
+                {startbutton}
             </div>
-            <div style={{flex: 1}}>
+            <div style={{flex: 1, width: '100%',}}>
                 <p>Invite friends to join by sharing this link:</p>
-                <p>mirrorworlds.io/game/{props.gameID}</p>
+                <p><u>mirrorworlds.io/game/{props.gameID}</u></p>
             </div>
             </div>
         </>
     )
-
 }
 
 export default PreGame;

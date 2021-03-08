@@ -13,7 +13,6 @@ import buttons from '../css/buttons.module.css';
 var socket;
 
 class Lobby extends Component {
-    /* TODO */
 
     constructor(props) {
         super(props);
@@ -60,12 +59,12 @@ class Lobby extends Component {
         if(sessionData && sessionData.userID){
             this.setState({userID: sessionData.userID});
         } else {
-            console.log('no session data...');
+            //console.log('no session data...');
             socket.connect();
         }
 
         socket.on('game_list_updated', (data) => {
-            console.log('game_list_updated');
+            //console.log('game_list_updated');
             this.getGames();
         });
     }
@@ -123,7 +122,6 @@ class Lobby extends Component {
     }
 
     render() {
-        console.log('lobby render');
         var createGameForm = (
                 <div>
                 <form onSubmit={this.createGame.bind(this)} >
@@ -135,8 +133,6 @@ class Lobby extends Component {
                 </div>
         )
 
-                // Ticker style found as "marquee" in style.module.css}
-                // Should work with class "flexboxgif" from style.module.css (that one also has padding)}
                 //<div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
                 //<div className={styles.flexboxgif}>
         return (

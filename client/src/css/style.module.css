@@ -29,12 +29,29 @@ body {
   background-color: #000;
 }
 
+/*ABOUT PAGE*/
+.howto {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /*DIVS*/
+/*
 div.container {
   position: fixed;
   width: 100%;
   height: 100%;
   background-color: lightblue;
+}*/
+
+div.flexcontainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  align-items: center;
 }
 
 div.flexbox {
@@ -56,13 +73,18 @@ div.flexboxgif {
   justify-content: center;
   flex: 1;
   text-align: center;
-  width: auto;
+  width: 100%;
   height: 100%;
-/*  background-color: blue; */ 
   padding-left: 8vw;
   padding-right: 8vw;
+  position: absolute;
 }
 
+.flexitem {
+  box-sizing: border-box;
+  text-align: center;
+  padding-bottom: 20px;
+}
 .picturesent {
   padding-top: 8vh; 
   background-color: #0000ff;
@@ -71,14 +93,10 @@ div.flexboxgif {
 .allpictures {
   padding-top: 8vh; 
   background-color: #00ff00;
+  width: 100%;
+  height: 100%;
 }
 
-.flexitem {
-  box-sizing: border-box;
-/*  background-color: red;
-*/  text-align: center;
-  padding-bottom: 20px;
-}
 
 div.centered {
   position: relative;
@@ -103,7 +121,7 @@ div.centered {
     height: auto;
     display: block;
     font-size: 4vh;
-    color: #00ff00;
+    color: #0F0;
     z-index: 50;
 }
 
@@ -116,14 +134,26 @@ div.centered {
 }
 
 .low {
-    top: 70vh;
+    bottom: 20vh;
 }
 
-span.tickertext {
+.tickertext {
+  display: inline-block;
   white-space: nowrap;
   padding: 0px 15px;
   color: white;
+  min-width: 16vw;
+  text-align: center;
 }
+
+/*
+.timer {
+  display: inline-block;
+  min-width: 16vw;
+  padding: 0px 10px;
+  text-align: center;
+  color: #0F0
+}*/
 
 /*IMAGES*/
 img.gif {
@@ -170,6 +200,7 @@ h1 {
   font-size: 12vw;
   margin: 0;
   text-transform: uppercase;
+  text-shadow: 3px 3px #000;
 }
 
 h2 {
@@ -187,13 +218,12 @@ h3 {
   font-size: 6vw;
   margin: 0;
   text-transform: uppercase;
-
+  text-align: center;
 }
 
 p {
   line-height: 1.2;
+  padding: 2vw;
   margin: 0;
-  font-size: 4vw;
-  margin: 0;
-
+  font-size: 5vw;
 }

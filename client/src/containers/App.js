@@ -5,10 +5,10 @@ import { Switch, BrowserRouter, Route } from 'react-router-dom';
 import io from 'socket.io-client';
 
 import Home from '../components/home';
-import About from '../components/about';
+import HowTo from '../components/howto';
 import Lobby from '../containers/lobby';
 import Game from '../containers/game';
-import CameraScreen from '../containers/cameraScreen';
+import CameraTest from '../containers/cameraTest';
 
 var socket;
 
@@ -20,17 +20,14 @@ class App extends Component {
     socket = io.connect('https://mirrorworlds.io');
     //    create unique user ID and register with server...
     socket.on('user_id', (newID) => {
-        console.log('user_id', newID);
         let sessionData = JSON.parse(window.sessionStorage.getItem('mw_user_data'));
         if(!sessionData || !sessionData.userID){
           sessionData = {userID: newID};
           this.setState({userID: newID});
-          console.log('recieved userID:', newID)
           window.sessionStorage.setItem('mw_user_data', JSON.stringify(sessionData));
         } else {
           // already have an ID, let server know it...
           socket.emit('user_id', sessionData.userID);
-          console.log('found userID:', sessionData.userID);
         }
     });
 
@@ -43,16 +40,16 @@ class App extends Component {
         <BrowserRouter forceRefresh={!supportsHistory}>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/cameraTest" component={CameraScreen}/>
+            <Route path="/howto" component={HowTo} />
+            <Route path="/cameraTest" component={CameraTest}/>
             <Route path="/lobby"
               render={(props) => <Lobby {...props} socket={socket} />}/>
             <Route path="/game/:id"
               render={(props) => <Game {...props} socket={socket} />}/>
-            <Route component={Home} />
           </Switch>
         </BrowserRouter>
     )
+            //<Route component={Home} />
   }
 }
 

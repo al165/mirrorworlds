@@ -3,11 +3,11 @@
 class Countdown {
 
     constructor(endTime){
-        console.log('Countdown', endTime);
+        //console.log('Countdown', endTime);
 
         this.timer = setInterval(() => {
             let now = Date.now();
-            var msg ='--:--';
+            let msg ='--:--';
 
             if(endTime){
                 const remaining = Math.floor((endTime - now) / 1000);
@@ -21,11 +21,13 @@ class Countdown {
 
                 if(remaining <= 10){
                     msg = "<span style='color: #F00;'>" + msg + "</span>";
+                } else {
+                    msg = "<span style='color: #0F0;'>" + msg + "</span>";
                 }
             }
 
             try {
-                var timers = document.getElementsByClassName('countdown-timer');
+                let timers = document.getElementsByClassName('timertext');
                 for(var i=0; i<timers.length; i++){
                     timers[i].innerHTML = msg;
                 }
@@ -34,10 +36,11 @@ class Countdown {
                 clearInterval(this.timer);
             }
 
-        }, 200);
+        }, 300);
     }
 
     deconstruct() {
+        //console.log('[Countdown]', 'deconstruct');
         clearInterval(this.timer);
     }
 }

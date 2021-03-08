@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: 'Mister Pixel';
     font-style: normal;
     font-weight: normal;
@@ -23,7 +23,6 @@ body {
   height: calc(var(--vh, 1vh) * 100);
 }
 
-/*TYPE*/
 
 .title {
   font-size: 10vw;
@@ -60,14 +59,12 @@ h3 {
 }
 
 
-/* Make content area fill the entire browser window */
 html
 .fullscreen {
   display: flex;
   flex: 1;
   margin: 0;
   padding: 0;
-  /*height: 100vh;*/
   width: 100vw;
   
   align-items: center;
@@ -75,9 +72,7 @@ html
   background-color: #000;
 
 }
-  /*height: calc(var(--vh, 1vh)*100); */
 
-/* Center the content in the browser window */
 .container {
   box-sizing: border-box;
   display: flex;  
@@ -119,7 +114,6 @@ html
   background-color: #000000;
 }
 
-/*SPLASH SCREEN*/
 .splash {
   padding: 0;
   margin: 0;
@@ -139,8 +133,6 @@ html
 .splash-item {
   padding: 5px;
 }
-
-/*TRANSITIONS*/
 
 .page {
   height: 100vh;
@@ -183,7 +175,6 @@ html
 }
 
 
-/*ITEMS*/
 
 img {
   max-width: 100%;
@@ -244,7 +235,6 @@ img {
 }
 
 
-/*BUTTONS*/
 
 
 .btncontainer {
@@ -320,7 +310,6 @@ button {
   background-color: #FF0000;
 }
 
-/*TABLES*/
 
 .tafel {
   height: 40vh;
@@ -376,7 +365,6 @@ label {
   width: 100%;
 }
 
-/*Camera canvas*/
 
     canvas {
       width: 100%;
@@ -384,7 +372,6 @@ label {
     }
     
 
-/*Camera label*/
 [type="file"] {
   border: 0;
   clip: rect(0, 0, 0, 0);
@@ -452,12 +439,10 @@ input[type="text"] {
   text-shadow: 0px 3px 6px rgba(0,0,0, 0.3);
 }
 
-::-webkit-input-placeholder { /* Edge */
   color: rgba(0,0,255,0.2);
   text-shadow: none;
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
   color: rgba(0,0,255,0.2);
   text-shadow: none;
 }
@@ -470,3 +455,4 @@ input[type="text"] {
 #gamename {
 
 }
+*/

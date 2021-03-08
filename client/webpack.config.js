@@ -1,13 +1,20 @@
 // based on:
 // https://www.freecodecamp.org/news/part-1-react-app-from-scratch-using-webpack-4-562b1d231e75/
 
-
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const htmlPlugin = new HtmlWebPackPlugin({
     template: "./src/index.html",
-    filename: "./index.html"
+    filename: "./index.html",
+    scriptLoading: "defer",
 });
+
+const copyPlugin = new CopyPlugin({
+    patterns: [
+        {from: 'public/', }
+    ]
+})
 
 module.exports = {
     module: {
@@ -70,11 +77,11 @@ module.exports = {
                 test: /\.mp4$/,
                 use: [
                     {
-                        loader: "url-loader",
+                        loader: "file-loader",
                         options: {
                             name: '[name].[ext]',
-                            limit: 10000,
-                            mimetype: "video/mp4"
+                            mimetype: "video/mp4",
+                            outputPath: "video"
                         }
                     }
                 ]
@@ -84,7 +91,7 @@ module.exports = {
                     {
                         loader: "url-loader",
                         options: {
-                            limit: 8000,
+                            limit: 10000,
                             name: '[name].[ext]',
                         }
                     }
@@ -92,5 +99,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [htmlPlugin]
+    plugins: [htmlPlugin, copyPlugin]
 };

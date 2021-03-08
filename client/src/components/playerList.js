@@ -16,7 +16,8 @@ function PlayerList(props) {
             playerList.push({
                 playerID: k,
                 username: player.username,
-                score: player.score
+                score: player.score,
+                earned: player.earned
             })
         }
     }
@@ -30,29 +31,31 @@ function PlayerList(props) {
     } else {
         return (
             <div className={styles.table}>
-            <table id="t">
-            <colgroup>
-                <col className={styles.w} />
-                <col className={styles.y} />
-                <col className={styles.y} />
-            </colgroup>
-            <thead>
-                <tr>
-                <th>Name</th>
-                <th>Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                playerList.map(p => (
-                    <tr key={p.playerID}>
-                        <td>{p.username == username ? p.username : p.username}</td>
-                        <td>{p.score}</td>
-                    </tr>
-                    ))
-                }
-            </tbody>
-            </table>
+              <table id="t">
+                <colgroup>
+                  <col className={styles.w} />
+                  <col className={styles.y} />
+                  <col className={styles.y} />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    playerList.map(p => (
+                        <tr key={p.playerID}>
+                            <td>{p.username == username ? <span style={{color: '#0F0'}}>{p.username}</span> : p.username}</td>
+                            <td>{p.score + p.earned}</td>
+                            {p.earned > 0 ? (<td>(+{p.earned})</td>) : <td></td>}
+                        </tr>
+                        ))
+                  }
+                </tbody>
+              </table>
             </div>
         );
     }
